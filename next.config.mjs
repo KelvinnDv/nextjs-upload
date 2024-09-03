@@ -1,21 +1,30 @@
-// /** @type {import('next').NextConfig} */
-// const nextConfig = {};
-
-// export default nextConfig;
-
-await import("./src/env.js");
-
-/** @type {import("next").NextConfig} */
-const config = {
-  images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "github.com",
-      },
-    ],
-  },
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+    images:{
+        remottePattern:[
+            {
+                protocol: 'https',
+                hostname:'',
+            }
+        ]
+    }
 };
 
-export default config;
+export default nextConfig;
+
+// await import("./src/env.js");
+
+// /** @type {import("next").NextConfig} */
+// const config = {
+//   images: {
+//     remotePatterns: [
+//       {
+//         protocol: "https",
+//         hostname: "github.com",
+//       },
+//     ],
+//   },
+// };
+
+// export default config;
 
