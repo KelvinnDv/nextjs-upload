@@ -1,9 +1,10 @@
-// import {prisma} from '@lib/prisma';
+import { prisma } from '@/lib/prisma';
+
 
 export const getImages = async () => {
     try {
         const result = await prisma.upload.findMany({
-            orderBy: {createAt: 'desc'}
+            orderBy: {createdAt: 'desc'},
         });
         return result;
     } catch (error) {

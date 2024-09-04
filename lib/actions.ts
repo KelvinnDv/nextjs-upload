@@ -7,16 +7,27 @@ import { revalidatePath } from 'next/cache'
 import { Calistoga } from "next/font/google";
 import { redirect } from 'next/dist/server/api-utils';
 
+// const UploadSchema  = z.object({
+//     title: z.string().min(1),
+//     image: z
+//     .instanceof(File)
+//     .refine((file)  => file.size > 0,{massage: "Image is required"})
+//     .refine((file)  => file.size === 0 || file.type.startsWith('image/'), {message: "Only images are allowed", 
+//     }) 
+//     .refine((file)  => file.size < 4000000, {message: "File size should be less than 4MB",
+//     }),
+// })
+
+// Jawaban Dari Codeium
 const UploadSchema  = z.object({
     title: z.string().min(1),
     image: z
     .instanceof(File)
-    .refine((file)  => file.size > 0,{massage: "Image is required"})
-    .refine((file)  => file.type.startsWith('image/'), {message: "Only images are allowed", 
-    }) 
-    .refine((file)  => file.size < 4000000, {message: "File size should be less than 4MB",
-    }),
+    .refine((file)  => file.size > 0,{message: "Image is required"})
+    .refine((file): file is File => file.type.startsWith('image/'), {message: "Only images are allowed"})
+    .refine((file)  => file.size < 4000000, {message: "File size should be less than 4MB"}),
 })
+
 
 
 export const uploadImage = async (prevstate:unknown, formData: FormData) => {
@@ -36,11 +47,11 @@ export const uploadImage = async (prevstate:unknown, formData: FormData) => {
         multipart: true
     });
 
-    try{
+    try {
         await prisma.upload.create({
             data:{
                 title,
-                image: url
+                image: url,
             },
         });
     } catch (error) {
@@ -48,5 +59,11 @@ export const uploadImage = async (prevstate:unknown, formData: FormData) => {
     }
 
     revalidatePath('/');
-    redirect('/');
+    // redirect('/'); 
+    // redirect({ destinataion: '/', permanent: false }); cara 1
+};
+
+export const deleteImage = async (id: string) =>  {
+    
 }
+
