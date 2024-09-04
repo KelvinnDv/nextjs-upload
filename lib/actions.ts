@@ -1,4 +1,5 @@
 'use server';
+
 import {z} from 'zod';
 import {put} from "@vercel/blob"
 import {prisma} from '@/lib/prisma';
@@ -11,7 +12,7 @@ const UploadSchema  = z.object({
     image: z
     .instanceof(File)
     .refine((file)  => file.size > 0,{massage: "Image is required"})
-    .refine((file)  => file.size === 0 || file.type.startsWith('image/'), {message: "Only images are allowed", 
+    .refine((file)  => file.type.startsWith('image/'), {message: "Only images are allowed", 
     }) 
     .refine((file)  => file.size < 4000000, {message: "File size should be less than 4MB",
     }),
