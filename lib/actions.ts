@@ -64,6 +64,47 @@ export const uploadImage = async (prevstate:unknown, formData: FormData) => {
     // redirect({ destinataion: '/', permanent: false }); cara 1
 };
 
+// Update Image
+export const updateImage = async (
+    id:string,
+    prevstate:unknown, 
+    formData: FormData
+    
+    ) => {
+    const validatetedFields = UploadSchema.safeParse(
+        Object.fromEntries(formData.entries())
+    );
+
+    if(!validatetedFields.success) {
+        return {
+            error: validatetedFields.error.flatten().fieldErrors
+        };
+    }
+
+    const {title, image} = validatetedFields.data;
+    const {url} = await put(image.name, image,{
+        access: "public",
+        multipart: true
+    });
+
+    try {
+        await prisma.upload.create({
+            data:{
+                title,
+                image: url,
+            },
+        });
+    } catch (error) {
+        return {message: 'Failed to create data'};
+    }
+
+    revalidatePath('/');
+    // redirect('/'); 
+    // redirect({ destinataion: '/', permanent: false }); cara 1
+};
+
+// Delete Image
+
 export const deleteImage = async (id: string) =>  {
     const data = await getImageById(id);
     if(!data) return {message: 'No Data Found'};
