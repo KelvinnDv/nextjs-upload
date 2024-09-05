@@ -1,9 +1,10 @@
 'use server';
 
 import {z} from 'zod';
-import {put} from "@vercel/blob"
+import {put, del} from "@vercel/blob"
 import {prisma} from '@/lib/prisma';
 import { revalidatePath } from 'next/cache'
+import { getImageById } from '@/lib/data';
 import { Calistoga } from "next/font/google";
 import { redirect } from 'next/dist/server/api-utils';
 
@@ -64,6 +65,17 @@ export const uploadImage = async (prevstate:unknown, formData: FormData) => {
 };
 
 export const deleteImage = async (id: string) =>  {
-    
+    const data = await getImageById(id);
+    if(!data) return {message: 'No Data Found'};
+
+    await del(data.image);
+    try {
+        await prisma.upload.delete({
+            where:{id}
+        })
+    } catch (error) {
+        return  {message: 'failed to delete data'}
+    }
+    revalidatePath('/')
 }
 

@@ -2,6 +2,7 @@
 import { useFormStatus } from 'react-dom';
 import {clsx} from 'clsx';
 import Link from 'next/link';
+import { deleteImage } from '@/lib/actions'
 
 export const SubmitButton = ({label}: {label: string}) => {
     const {pending} = useFormStatus();
