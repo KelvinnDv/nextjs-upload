@@ -3,9 +3,13 @@
 const nextConfig = {
     images: {
         remotePatterns: [
+            // {
+            //     protocol: "https",
+            //     hostname: "vlhp7vnbo3iooptf.public.blob.vercel-storage.com",
+            // },
             {
                 protocol: "https",
-                hostname: "vlhp7vnbo3iooptf.public.blob.vercel-storage.com",
+                hostname: "ovsyycftgdiyx8vh.public.blob.vercel-storage.com",
             },
         ],
     },
