@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { EditButton } from '@/components/button';
+import { EditButton,DeleteButton } from '@/components/button';
 import type  { Upload } from '@prisma/client';
 
 const Card = ({data}: {data:Upload}) => {
