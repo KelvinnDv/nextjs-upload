@@ -22,3 +22,5 @@ const Card = ({data}: {data:Upload}) => {
         </div>
     )
 }
+
+export default Card;
