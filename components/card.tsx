@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { EditButton,DeleteButton } from '@/components/button';
+import { EditButton, DeleteButton } from '@/components/button';
 import type  { Upload } from '@prisma/client';
 
 const Card = ({data}: {data:Upload}) => {
@@ -17,7 +17,7 @@ const Card = ({data}: {data:Upload}) => {
             </div>
             <div className='flex items-center justify-between'>
                 <EditButton id={data.id}/>
-                {/* <DeleteButton id={data.id}/> */}
+                <DeleteButton id={data.id}/>
             </div>
         </div>
     )
